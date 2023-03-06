@@ -1,0 +1,65 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code Style</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        div.board {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+            margin: 20px 4%;
+        }
+
+        div.box {
+            border: 1px solid red;
+            width: 100%;
+            padding: 5vw;
+            height: auto;
+            background: white;
+            transition: background 2s;
+        }
+
+        .red {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="color" id="color">
+    <button id="Eraser">Eraser</button>
+    <div class="board" id="mainBox">
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <div class="box" id="box"></div>
+        <script>
+            let color = document.getElementById('color');
+            let eraser = document.getElementById('Eraser');
+            let box = document.querySelectorAll('.box');
+            if (!color.value == "")
+            {
+                box.forEach(currentBox => {
+                    // event.addEventListener('mouseover', () => event.classList.toggle("red"));
+                    currentBox.addEventListener('mouseover', () => currentBox.style.background = color.value);
+                    currentBox.addEventListener('mouseleave', () => currentBox.style.background = "black");
+                });
+            }
+        </script>
+</body>
+
+</html>
