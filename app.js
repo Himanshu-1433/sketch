@@ -1,9 +1,8 @@
 let color = document.getElementById('color');
 let eraser = document.getElementById('Eraser');
 let GridInput = document.getElementById('Gridinput');
-let tbody = document.getElementsByTagName('tbody');
 let check = true;
-tbody.innerHTML = "HTml";
+// Eraser button 
 eraser.addEventListener("click", () => {
     if (eraser.value == "ON") {
         check = false;
@@ -22,6 +21,7 @@ eraser.addEventListener("click", () => {
         condition();
     }
 });
+// box creater function
 let tableBoundary = document.getElementById("TableCreater"); 
 function Create() {
     let table = document.createElement('table');
@@ -38,6 +38,7 @@ function Create() {
     document.getElementById('Reset').style.display = "block";
     condition();
 }
+// condition check function
 function condition() {
     check = true;
     eraser.disabled = false;
@@ -49,13 +50,14 @@ function condition() {
         }
     }
 }
+
 let arrayOfColor = []; // this array are  null array
 tableBoundary.addEventListener("mouseleave" ,() => {
     arrayOfColor = [];
     console.log("out");
 });
 
-
+// this is on 10+ condition
 function onover(arr, num, check) {
     if (check) {
         if (arrayOfColor.length <= 10) {
@@ -71,6 +73,8 @@ function onover(arr, num, check) {
     }
 
 }
+
+// this is for reset button
 function Reset() {
     location.reload();
 }
