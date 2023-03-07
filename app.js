@@ -1,7 +1,9 @@
 let color = document.getElementById('color');
 let eraser = document.getElementById('Eraser');
 let GridInput = document.getElementById('Gridinput');
-let check;
+let tbody = document.getElementsByTagName('tbody');
+let check = true;
+tbody.innerHTML = "HTml";
 eraser.addEventListener("click", () => {
     if (eraser.value == "ON") {
         check = false;
@@ -14,12 +16,13 @@ eraser.addEventListener("click", () => {
         eraser.value = "OFF";
     }
     else if (eraser.value == "OFF") {
-        condition();
         document.getElementById('StatusOfEraser').innerHTML = "Eraser Are OFF";
         eraser.value = "ON";
+        check = true;
+        condition();
     }
 });
-
+let tableBoundary = document.getElementById("TableCreater"); 
 function Create() {
     let table = document.createElement('table');
     for (let row = 0; row < GridInput.value; row++) {
@@ -29,7 +32,7 @@ function Create() {
             td.classList.add("box");
         }
     }
-    document.getElementById("TableCreater").appendChild(table);
+    tableBoundary.appendChild(table);
     GridInput.disabled = true;
     document.getElementById('EnterValue').style.display = "none";
     document.getElementById('Reset').style.display = "block";
@@ -37,30 +40,36 @@ function Create() {
 }
 function condition() {
     check = true;
-    let box = document.querySelectorAll('.box');
     eraser.disabled = false;
     if (!color == "") {
+        let box = document.querySelectorAll('.box');
         document.getElementById('total').innerHTML = 'Total ' + box.length + ' box are Cereated';
         for (let stat = 0; stat < box.length; stat++) {
             box[stat].addEventListener('mouseover', () => { onover(box, stat, check) });
-            // box[stat].addEventListener('mouseleave', () => { box[stat].style.background = "black" });
         }
     }
 }
-let arrayOfColor = [];
+let arrayOfColor = []; // null array
+tableBoundary.addEventListener("mouseleave" ,() => {
+    arrayOfColor = [];
+    console.log("out");
+});
+
+
 function onover(arr, num, check) {
     if (check) {
-        if (arrayOfColor.length <= 9) {
+        if (arrayOfColor.length <= 10) {
             arr[num].style.background = color.value;
             arrayOfColor.push(num);
             console.log(arrayOfColor + " Length :" + arrayOfColor.length)
-            if (arrayOfColor.length > 9) {
+            if (arrayOfColor.length > 10) {
                 let GoOutEle = arrayOfColor.shift();
                 arr[GoOutEle].style.background = "black";
                 arr[num].style.background = color.value;
             }
         }
     }
+
 }
 function Reset() {
     location.reload();
