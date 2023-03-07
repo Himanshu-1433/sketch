@@ -49,7 +49,7 @@ function condition() {
         }
     }
 }
-let arrayOfColor = []; // null array
+let arrayOfColor = []; // this array are  null array
 tableBoundary.addEventListener("mouseleave" ,() => {
     arrayOfColor = [];
     console.log("out");
