@@ -1,0 +1,17 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.tbs {
+    overflow-x: scroll;
+}
+
+td.box {
+    position: relative;
+    border: 1px solid red;
+    padding: 2vw;
+    background: white;
+    transition: background 1.5s;
+}
