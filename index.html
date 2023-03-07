@@ -40,8 +40,7 @@
                     <label for="Color">Choose Color</label>
                     <input type="color" class="form-control" id="color">
                 </div>
-                <button id="Eraser" class="btn btn-danger m-2" value="ON"
-                    disabled>Eraser</button>
+                <button id="Eraser" class="btn btn-danger m-2" value="ON" disabled>Eraser</button>
                 <span id="StatusOfEraser"></span>
             </div>
         </div>
@@ -118,9 +117,20 @@
             if (!color == "") {
                 document.getElementById('total').innerHTML = 'Total ' + box.length + ' box are Cereated';
                 for (let stat = 0; stat < box.length; stat++) {
-                    box[stat].addEventListener('mouseover', () => box[stat].style.background = color.value);
-                    box[stat].addEventListener('mouseleave', () => box[stat].style.background = "black");
+                    box[stat].addEventListener('mouseover', () => { onover(box, stat) });
+                    // box[stat].addEventListener('mouseleave', () => { box[stat].style.background = "black" });
                 }
+            }
+        }
+        let arrayOfColor = [];
+        function onover(arr, num) {
+            if (arrayOfColor.length >= 10) {
+                console.log("the length are above 10.");
+            }
+            else if (arrayOfColor.length <= 9) { 
+                arr[num].style.background = color.value;
+                arrayOfColor.push(num);
+                console.log(arrayOfColor + " Length :" +arrayOfColor.length);
             }
         }
         function Reset() {
