@@ -13,9 +13,7 @@
             box-sizing: border-box;
         }
 
-        tbody {
-            width: 100vw;
-            overflow-y: scroll;
+        .tbs {
             overflow-x: scroll;
         }
 
@@ -28,7 +26,7 @@
         }
 
         .red {
-            background-color: blue;
+            background-color: transparent;
         }
     </style>
 </head>
@@ -42,62 +40,91 @@
                     <label for="Color">Choose Color</label>
                     <input type="color" class="form-control" id="color">
                 </div>
-                <button id="Eraser" class="btn btn-danger m-2" value="ON" disabled>Eraser</button>
+                <button id="Eraser" class="btn btn-danger m-2" value="ON"
+                    disabled>Eraser</button>
+                <span id="StatusOfEraser"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-12 form-group">
-                <label for="Horizontal">Columns</label>
-                <input type="number" id="Horizontal" class="form-control" max="100" min="1">
-                <label for="vertical">Rows</label>
-                <input type="number" id="vertical" class="form-control" max="100" min="1">
+                <label for="GridInput">Enter Dimention</label>
+                <input type="number" id="Gridinput" class="form-control" max="100" min="1">
                 <button id="EnterValue" class="btn btn-success my-2" onclick="Create()">Create</button>
                 <button id="Reset" class="btn btn-danger my-2" style="display: none;" onclick="Reset()">Reset</button>
             </div>
-            <div class="col-sm-12 col-md-12">
-                <table id="table">
-                </table>
-            </div>
         </div>
+    </div>
+    <div class="container tbs" id="TableCreater">
+        <h1 class="h1">Your Pad <span id="total"></span></h1>
+
     </div>
     <script>
         let color = document.getElementById('color');
         let eraser = document.getElementById('Eraser');
-        let Horizontal = document.getElementById('Horizontal');
-        let vertical = document.getElementById('vertical');
-        const table = document.getElementById("table");
+        let GridInput = document.getElementById('Gridinput');
+
+        eraser.addEventListener("click", () => {
+            if (eraser.value == "ON") {
+                let box = document.querySelectorAll('.box');
+                document.getElementById('StatusOfEraser').innerHTML = "Eraser Are on";
+                for (let stat = 0; stat < box.length; stat++) {
+                    box[stat].addEventListener('mouseover', () => box[stat].style.background = "transparent");
+                    box[stat].addEventListener('mouseleave', () => box[stat].style.background = "transparent");
+                }
+                eraser.value = "OFF";
+            }
+            else if (eraser.value == "OFF") {
+                condition();
+                document.getElementById('StatusOfEraser').innerHTML = "Eraser Are OFF";
+                eraser.value = "ON";
+            }
+        });
+
+        // function EraserBtn() {
+        //     if (eraser.value == "ON") {
+        //         let box = document.querySelectorAll('.box');
+        //         document.getElementById('StatusOfEraser').innerHTML = "Eraser Are on";
+        //         for (let stat = 0; stat < box.length; stat++) {
+        //             box[stat].addEventListener('mouseover', () => box[stat].style.background = "transparent");
+        //             box[stat].addEventListener('mouseleave', () => box[stat].style.background = "transparent");
+        //         }
+        //         eraser.value = "OFF";
+        //     }
+        //     else if (eraser.value == "OFF") {
+        //         condition();
+        //         document.getElementById('StatusOfEraser').innerHTML = "Eraser Are OFF";
+        //         eraser.value = "ON";
+        //     }
+        // }
 
         function Create() {
-            for (let row = 0; row < vertical.value; row++) {
+            let table = document.createElement('table');
+            for (let row = 0; row < GridInput.value; row++) {
                 const tr = table.insertRow(row);
-                tr.classList.add('row');
-                for (let col = 0; col < Horizontal.value; col++) {
+                for (let col = 0; col < GridInput.value; col++) {
                     const td = tr.insertCell(col);
                     td.classList.add("box");
                 }
             }
-            Horizontal.disabled = true;
-            vertical.disabled = true;
+            document.getElementById("TableCreater").appendChild(table);
+            GridInput.disabled = true;
             document.getElementById('EnterValue').style.display = "none";
             document.getElementById('Reset').style.display = "block";
             condition();
         }
-
-        function Reset() {
-            location.reload();
-        }
-
         function condition() {
             let box = document.querySelectorAll('.box');
             eraser.disabled = false;
-            console.log(eraser.value);
             if (!color == "") {
-                box.forEach(currentBox => {
-                    console.log("Enter");
-                    currentBox.addEventListener('mouseover', () => currentBox.style.background = color.value);
-                    currentBox.addEventListener('mouseleave', () => currentBox.style.background = "black");
-                });
+                document.getElementById('total').innerHTML = 'Total ' + box.length + ' box are Cereated';
+                for (let stat = 0; stat < box.length; stat++) {
+                    box[stat].addEventListener('mouseover', () => box[stat].style.background = color.value);
+                    box[stat].addEventListener('mouseleave', () => box[stat].style.background = "black");
+                }
             }
+        }
+        function Reset() {
+            location.reload();
         }
     </script>
     <script src="./bootstrap/js/javascript.js"></script>
