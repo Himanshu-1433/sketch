@@ -5,6 +5,7 @@
 }
 
 .tbs {
+    border: 1px solid gray;
     overflow-x: scroll;
 }
 
